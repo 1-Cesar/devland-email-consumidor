@@ -14,5 +14,5 @@ public class EmailDto {
 
     private String foto;
 
-    TipoMensagem tipoMensagem;
+    private TipoMensagem tipoMensagem;
 }
