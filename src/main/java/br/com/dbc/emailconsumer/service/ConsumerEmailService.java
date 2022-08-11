@@ -82,7 +82,7 @@ public class ConsumerEmailService {
             mimeMessageHelper.setText(getContentFromTemplatePessoa(emailDto), true);
             emailSender.send(mimeMessageHelper.getMimeMessage());
         } catch (RegraDeNegocioException | MessagingException | IOException | TemplateException e) {
-            System.out.println("erro no envio de email");
+            log.info("Erro no envio de email");
         }
     }
 
