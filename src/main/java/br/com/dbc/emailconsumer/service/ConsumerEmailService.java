@@ -76,6 +76,8 @@ public class ConsumerEmailService {
                 mimeMessageHelper.setSubject(emailDto.getNome() + ", seus dados foram atualizados!");
             } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.DELETE.getTipo())) {
                 mimeMessageHelper.setSubject(emailDto.getNome() + ", sentiremos sua falta na DevLand!");
+            } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.CADASTROINCOMPLETO.getTipo())) {
+                mimeMessageHelper.setSubject(emailDto.getNome() + ", sentiremos sua falta na DevLand!");
             } else {
                 throw new RegraDeNegocioException("Falha no envio de e-mail");
             }
