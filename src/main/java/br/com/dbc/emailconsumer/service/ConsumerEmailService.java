@@ -78,6 +78,8 @@ public class ConsumerEmailService {
                 mimeMessageHelper.setSubject(emailDto.getNome() + ", sentiremos sua falta na DevLand!");
             } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.CADASTROINCOMPLETO.getTipo())) {
                 mimeMessageHelper.setSubject(emailDto.getNome() + ", complete seu cadastro e seja encontrado na DevLand!");
+            } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.MISSYOU.getTipo())) {
+                mimeMessageHelper.setSubject(emailDto.getNome() + ", percebemos sua ausencia, voce faz falta na DevLand!");
             } else {
                 throw new RegraDeNegocioException("Falha no envio de e-mail");
             }
@@ -111,7 +113,13 @@ public class ConsumerEmailService {
             dados.put("email", "Qualquer dúvida, entre em contato com o suporte pelo e-mail " + from);
             template = fmConfiguration.getTemplate("email-template.html");
 
-        } else {
+        } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.MISSYOU.getTipo())){
+        dados.put("nome", "Olá, " + emailDto.getNome() + "!");
+        dados.put("mensagem", "Notamos que voce está afastado por mais de 8 dias, sua presença é importante para a DevLand.");
+        dados.put("email", "Qualquer dúvida, entre em contato com o suporte pelo e-mail " + from);
+        template = fmConfiguration.getTemplate("email-template.html");
+
+    }else {
             dados.put("nome", "Olá, " + emailDto.getNome() + "! Sentiremos sua falta na DevLand");
             dados.put("mensagem", "Seu cadastro foi removido da nossa rede, mas você pode voltar quando quiser!");
             dados.put("email", "Qualquer dúvida, entre em contato com o suporte pelo e-mail " + from);
