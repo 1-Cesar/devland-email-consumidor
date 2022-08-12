@@ -77,7 +77,7 @@ public class ConsumerEmailService {
             } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.DELETE.getTipo())) {
                 mimeMessageHelper.setSubject(emailDto.getNome() + ", sentiremos sua falta na DevLand!");
             } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.CADASTROINCOMPLETO.getTipo())) {
-                mimeMessageHelper.setSubject(emailDto.getNome() + ", sentiremos sua falta na DevLand!");
+                mimeMessageHelper.setSubject(emailDto.getNome() + ", complete seu cadastro e seja encontrado na DevLand!");
             } else {
                 throw new RegraDeNegocioException("Falha no envio de e-mail");
             }
@@ -102,6 +102,12 @@ public class ConsumerEmailService {
         } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.UPDATE.getTipo())) {
             dados.put("nome", "Olá, " + emailDto.getNome() + "! Seus dados foram atualizados!");
             dados.put("mensagem", "Seus dados foram atualizados com sucesso e já podem ser encontrados por empresas e talentos.");
+            dados.put("email", "Qualquer dúvida, entre em contato com o suporte pelo e-mail " + from);
+            template = fmConfiguration.getTemplate("email-template.html");
+
+        } else if (emailDto.getTipoMensagem().getTipo().equals(TipoMensagem.CADASTROINCOMPLETO.getTipo())) {
+            dados.put("nome", "Olá, " + emailDto.getNome() + "!");
+            dados.put("mensagem", "Notamos que faltam alguns dados do seu cadastro para ficar completo e assim poder ser encontrado por empresas com mais compatibilidade com seu perfil.");
             dados.put("email", "Qualquer dúvida, entre em contato com o suporte pelo e-mail " + from);
             template = fmConfiguration.getTemplate("email-template.html");
 
